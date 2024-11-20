@@ -8,7 +8,7 @@ from aws_lambda_powertools import Logger, Tracer
 logger = Logger()
 tracer = Tracer(service="APP")
 address_table = os.getenv('TABLE_NAME')
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', 'eu-west-1')
 table = dynamodb.Table(address_table)
 
 @tracer.capture_method 

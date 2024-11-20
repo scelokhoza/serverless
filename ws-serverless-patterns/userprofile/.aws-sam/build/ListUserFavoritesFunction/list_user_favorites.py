@@ -7,15 +7,16 @@ from aws_lambda_powertools import Logger, Tracer
 # Globals
 logger = Logger()
 tracer = Tracer(service="APP")
-address_table = os.getenv('TABLE_NAME')
+favorites_table = os.getenv('TABLE_NAME')
 dynamodb = boto3.resource('dynamodb', 'eu-west-1')
-table = dynamodb.Table(address_table)
+table = dynamodb.Table(favorites_table)
 
 @tracer.capture_method 
-def list_addresses(event, context):
+def list_favorites(event, context):
     logger.info(event)
+
     user_id = event['requestContext']['authorizer']['claims']['sub']
-    logger.info(f"Retrieving addresses for user %s", user_id)
+    logger.info(f"Retrieving favorites for user %s", user_id)
 
     response = table.query(
         KeyConditionExpression=Key('user_id').eq(user_id)
@@ -26,18 +27,19 @@ def list_addresses(event, context):
         item.pop("user_id", None)
 
     logger.info(items)
-    logger.info(f"Found {len(items)} address(es) for user.")
+    logger.info(f"Found {len(items)} favorite(s) for user.")
     return items
+
 
 @tracer.capture_lambda_handler
 def lambda_handler(event, context):
     try:
-        addresses = list_addresses(event, context)
+        favorites = list_favorites(event, context)
         response = {
             "statusCode": 200,
             "headers": {},
             "body": json.dumps({
-                "addresses": addresses
+                "favorites": favorites
             })
         }
         return response

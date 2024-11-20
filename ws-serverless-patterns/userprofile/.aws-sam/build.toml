@@ -9,4 +9,13 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["AddUserAddressFunction", "EditUserAddressFunction", "DeleteUserAddressFunction", "ListUserAddressesFunction"]
 
+[function_build_definitions.b75f592e-5ec0-41e8-a06d-8c8ac207aa4b]
+codeuri = "/home/wtc/Desktop/serverless/ws-serverless-patterns/userprofile/src/api/favorites"
+runtime = "python3.9"
+architecture = "x86_64"
+handler = "list_user_favorites.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["ListUserFavoritesFunction", "ProcessFavoriteRestaurantsQueueFunction"]
+
 [layer_build_definitions]
