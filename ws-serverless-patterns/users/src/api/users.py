@@ -9,7 +9,7 @@ from datetime import datetime
 
 # Prepare DynamoDB client
 USERS_TABLE = os.getenv('USERS_TABLE', None)
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
 ddbTable = dynamodb.Table(USERS_TABLE)
 
 def lambda_handler(event, context):
