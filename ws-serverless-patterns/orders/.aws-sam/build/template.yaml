@@ -25,6 +25,18 @@ Resources:
       - AttributeName: orderId
         KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
+  PyUtils:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: pyutils
+      Description: Shared utilities for Orders service
+      ContentUri: PyUtils
+      CompatibleRuntimes:
+      - python3.9
+      RetentionPolicy: Delete
+    Metadata:
+      BuildMethod: python3.9
+      SamResourceId: PyUtils
   WorkshopApiGateway:
     Type: AWS::Serverless::Api
     Properties:

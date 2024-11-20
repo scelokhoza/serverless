@@ -9,4 +9,11 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["AddOrderFunction"]
 
-[layer_build_definitions]
+[layer_build_definitions.597fba71-e8e3-4a8f-b96d-19ebadc3d5a4]
+layer_name = "PyUtils"
+codeuri = "/home/wtc/Desktop/serverless/ws-serverless-patterns/orders/src/layers"
+build_method = "python3.9"
+compatible_runtimes = ["python3.9"]
+architecture = "x86_64"
+manifest_hash = ""
+layer = "PyUtils"
