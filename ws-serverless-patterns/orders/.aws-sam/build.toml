@@ -27,6 +27,15 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["ListOrdersFunction"]
 
+[function_build_definitions.230fce59-497d-4090-a1d2-924f91707197]
+codeuri = "/home/wtc/Desktop/serverless/ws-serverless-patterns/orders/src/api/order/edit"
+runtime = "python3.9"
+architecture = "x86_64"
+handler = "edit_order.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["EditOrderFunction"]
+
 [layer_build_definitions.597fba71-e8e3-4a8f-b96d-19ebadc3d5a4]
 layer_name = "PyUtils"
 codeuri = "/home/wtc/Desktop/serverless/ws-serverless-patterns/orders/src/layers"
