@@ -58,7 +58,8 @@ def add_order(event: dict):
     return detail
 
 
-def lambda_handler(event, context):
+@logger.inject_lambda_context
+def lambda_handler(event, context: LambdaContext):
     """Handles the lambda method invocation"""
     try:
         order_detail = add_order(event=event)
