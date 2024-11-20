@@ -4,11 +4,20 @@ from decimal import Decimal
 import json
 import uuid
 from datetime import datetime
+from aws_lambda_powertools.utilities.typing import LambdaContext
+from aws_lambda_powertools.utilities.idempotency import (
+    IdempotencyConfig, DynamoDBPersistenceLayer, idempotent_function
+)
 
 # Globals
 orders_table = os.getenv('TABLE_NAME')
+idempotency_table = os.getenv('IDEMPOTENCY_TABLE_NAME')
 dynamodb = boto3.resource('dynamodb')
 
+persistence_layer = DynamoDBPersistenceLayer(table_name=idempotency_table)
+idempotency_config = IdempotencyConfig(event_key_jmespath="powertools_json(body).orderId")
+
+@idempotent_function(data_keyword_argument="event", config=idempotency_config, persistence_store=persistence_layer)
 def add_order(event: dict):
     detail = json.loads(event['body'])
     restaurant_id = detail['restaurantId']
