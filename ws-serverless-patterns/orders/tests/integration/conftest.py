@@ -5,6 +5,9 @@ import uuid
 import json
 from datetime import datetime
 from decimal import Decimal
+from dotenv import load_dotenv
+
+load_dotenv()
 
 APPLICATION_STACK_NAME = os.getenv('USERS_STACK_NAME', None)
 MODULE3_STACK_NAME = os.getenv('ORDERS_STACK_NAME', None)
@@ -12,7 +15,7 @@ globalConfig = {}
 
 def get_stack_outputs(stack_name):
     result = {}
-    cf_client = boto3.client('cloudformation')
+    cf_client = boto3.client('cloudformation', 'eu-west-1')
     cf_response = cf_client.describe_stacks(StackName=stack_name)
     outputs = cf_response["Stacks"][0]["Outputs"]
     for output in outputs:
@@ -21,8 +24,8 @@ def get_stack_outputs(stack_name):
 
 def create_cognito_accounts():
     result = {}
-    sm_client = boto3.client('secretsmanager')
-    idp_client = boto3.client('cognito-idp')
+    sm_client = boto3.client('secretsmanager', 'eu-west-1')
+    idp_client = boto3.client('cognito-idp', 'eu-west-1')
     
     # Get a random password from Secrets Manager
     secrets_manager_response = sm_client.get_random_password(
@@ -77,7 +80,7 @@ def clear_dynamo_tables():
     """
     Clear all pre-existing data from the tables prior to testing.
     """
-    dbd_client = boto3.client('dynamodb')
+    dbd_client = boto3.client('dynamodb', 'eu-west-1')
     db_response = dbd_client.scan(
         TableName=globalConfig['OrdersTable'],
         AttributesToGet=['userId', 'orderId']
