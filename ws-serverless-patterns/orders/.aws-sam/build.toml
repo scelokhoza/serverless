@@ -36,6 +36,15 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["EditOrderFunction"]
 
+[function_build_definitions.7e7ed5cf-584d-484f-876f-c604d8c9a78b]
+codeuri = "/home/wtc/Desktop/serverless/ws-serverless-patterns/orders/src/api/order/cancel"
+runtime = "python3.9"
+architecture = "x86_64"
+handler = "cancel_order.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["CancelOrderFunction"]
+
 [layer_build_definitions.597fba71-e8e3-4a8f-b96d-19ebadc3d5a4]
 layer_name = "PyUtils"
 codeuri = "/home/wtc/Desktop/serverless/ws-serverless-patterns/orders/src/layers"
